@@ -102,7 +102,7 @@
 %%
 %%\mysection{Preface}
 %\mysection{Esipuhe}
-%%I want to thank Professor Pirjo Professori and my instructor Dr Alan Advisor for 
+%%I want to thank Professor Pirjo Professori and my instructor Dr Alan Advisor for
 %%their good and poor guidance.\\
 
 %%\vspace{5cm}
@@ -120,29 +120,28 @@
 
 
 %% Symbols and abbreviations
-%%\mysection{Symbols and abbreviations}
+\mysection{Symbols and abbreviations}
 
-%%\subsection*{Symbols}
+TODO: I wonder if I should keep this section, since it's going to be very short.
 
-%%\begin{tabular}{ll}
-%%$\mathbf{B}$  & magnetic flux density  \\
-%%$c$              & speed of light in vacuum $\approx 3\times10^8$ [m/s]\\
-%%$\omega_{\mathrm{D}}$    & Debye frequency \\
-%%$\omega_{\mathrm{latt}}$ & average phonon frequency of lattice \\
-%%$\uparrow$       & electron spin direction up\\
-%%$\downarrow$     & electron spin direction down
-%%\end{tabular}
+\subsection*{Symbols}
+
+\begin{tabular}{ll}
+$Q$  & traffic flow rate  \\
+$\rho$              & traffic density  \\
+$v$              & velocity  \\
+\end{tabular}
 
 %%\subsection*{Operators}
 
 %%\begin{tabular}{ll}
 %%$\nabla \times \mathbf{A}$              & curl of vectorin $\mathbf{A}$\\
-%%$\displaystyle\frac{\mbox{d}}{\mbox{d} t}$ & derivative with respect to 
+%%$\displaystyle\frac{\mbox{d}}{\mbox{d} t}$ & derivative with respect to
 %%variable $t$\\[3mm]
-%%$\displaystyle\frac{\partial}{\partial t}$  & partial derivative with respect 
+%%$\displaystyle\frac{\partial}{\partial t}$  & partial derivative with respect
 %%to variable $t$ \\[3mm]
 %%$\sum_i $                       & sum over index $i$\\
-%%$\mathbf{A} \cdot \mathbf{B}$    & dot product of vectors $\mathbf{A}$ and 
+%%$\mathbf{A} \cdot \mathbf{B}$    & dot product of vectors $\mathbf{A}$ and
 %%$\mathbf{B}$
 %%\end{tabular}
 
@@ -160,58 +159,68 @@
 \cleardoublepage
 
 \section{Introduction}
-	
+
 \thispagestyle{empty}
 
-Traffic jams not only are an annoyance in our everyday lives, but also a burden on the efficient functioning of the society. One of the basic tasks of a state is to build and maintain infrastructure that is sufficient to support the local economy, but the rapidly developing urban areas certainly don't make it an easy one.
+Traffic jams are not only an annoyance in our everyday lives, but also a burden on the efficient functioning of the society. One of the basic tasks of a state is to build and maintain infrastructure that is sufficient to support the local economy, but the rapidly developing urban areas do not make it an easy one.
 
-In this thesis, we will be examining Helsinki's traffic network. While Helsinki's city centre was originally built in the 19th century, the population of the city has grown over ten-fold since then \cite{helsinki}. To cope with the resulting dramatic increase in traffic amounts, instead of building new infrastructure, traffic control methods are usually the most economical option. For example, congestion pricing models have been implemented in cities such as London and Stockholm to protect areas most susceptible to congestion \cite{congestionpricing}.
+This thesis will examine Helsinki's traffic network. The city centre of Helsinki was originally built in the 19th century, but the population of the city has grown over ten-fold since then \cite{helsinki}. To cope with the resulting dramatic increase in traffic amounts traffic control methods are usually implemented instead of building new infrastructure. For example, congestion pricing models have been implemented in cities such as London and Stockholm to protect areas most susceptible to congestion \cite{congestionpricing}.
 
-Traffic flow is a study that attempts to model the behavior of real-life traffic networks. Theoretical, empirically verified models of traffic can be useful in comparing traffic control methods and determining optimal ways to control traffic and minimize congestion.
+Traffic flow research attempts to model the behavior of real-life traffic networks. Theoretical, empirically verified models of traffic can be useful in comparing traffic control methods and determining optimal ways to control traffic and minimize congestion.
+
+The goal of this thesis is to simulate Helsinki's traffic network using VisSim traffic simulation software and compare the effectiveness of different traffic control methods in minimizing traffic congestion. The thesis is divided into five sections. In the second section, the theoretical basis behind the used traffic simulation methods will be explored. The simulation methods and used material will be discussed in the third section. The results of the simulation will be presented in the fourth section. The fifth section contains a summary of the thesis.
 
 \clearpage
 
 \section{Background}
 
-\subsection{Traffic simulation}
+\subsection{Traffic flow}
 
-Traffic simulation theory here; the divide into microscopic and macroscopic models, their differences etc. Fundemental diagram of traffic flow.
+The field of traffic flow examines vehicle traffic on road networks. There are several different models used in analyzing traffic flow. This thesis uses the microscopic and macroscopic models. The microscopic model is used to model the traffic in the developed simulation and values describing the macroscopic model will be derived from the simulation.
+
+Microscopic traffic flow modelling simulates the behavior of each individual vehicle. The basis of most microscopic models is the car-following model. It models the behavior of vehicles in such a way that they try to keep a distance determined by the speed of the vehicle to the vehicle in front of them. On top of this, the models based on car-following can specify the acceleration behavior, braking strategy and other more sophisticated properties of the modelled vehicles.
+
+As opposed to microscopic models, macroscopic traffic flow models do not consider individual vehicles, but model the vehicle flow similarly to liquids and gases. The important quantities in this model are the flow density $\rho$, flow rate $Q$ and vehicle velocity $v$. The quantities are related by the flow-density relation
+
+\[ Q = \rho v .\]
+
+These macroscopic quantities are useful in describing the congestion and throughput of the observed roads. Flow can be measured from a microscopic model by counting the number of vehicles passing a point on a road. Thus, if we know the average velocities of the vehicles, we can also calculate the density of the traffic in the model. \cite{treiber}
+
+A useful tool of macroscopic traffic analysis is the fundemental diagram of traffic flow. The flow rate of traffic at a single point on a road can be considered as a function of the flow density. The maximum of this function is found at point $\rho_c$, which is called the critical density. After the density of traffic passes this point, congestion starts to form.\cite{kerner}
 
 \subsection{Pathfinding}
 
-Basic theory behind pathfinding algorithms; graphs, Dijkstra, A-star.
+TODO: Write about basic graph theory and pathfinding once progress has been done on the simulation and I know what needs to be explained. Maybe just graphs and Dijkstra?
 
 \clearpage
 
 \section{Research material and methods}
 
-This section will be subsection-ed once I get the simulation stuff properly under started. Too hard to throw together a reasonable structure yet.
+TODO: consider the following points
 
-Some facts and open questions about the simulation:
+* The simulation will be implemented in the VISSIM software. Pedestrians will most likely be ignored to keep the focus. Also need to decide on speed limits. It will probably be a reasonable amount of work to categorize the roads into 2 or 3 speed limit categories.
 
-The simulation will be implemented in the VISSIM software. Pedestrians will most likely be ignored to keep the focus. Also need to decide on speed limits. It will probably be a reasonable amount of work to categorize the roads into 2 or 3 speed limit categories even if we don't get that data automatically.
-
-Where will map data come from? Self built vs automatically fetched from OpenStreetMaps etc? What kind of an area will be included in the simulation? What kinds of roads? Helsinki centre, but will we include highways such as Länäri as exit/entry points?
+* What kind of an area will be included in the simulation? What kinds of roads? Helsinki centre, but will we include highways such as Länäri as exit/entry points?
 
 \clearpage
 
 \section{Results}
 
-Results here. Exact structure is hard to know at this point, but could look something like this.
+TODO: Results here. Exact structure is hard to know at this point, but could look something like this.
 
 \subsection{Simulation results}
 
-Examine simulation outcomes one-by-one. Probably group by traffic control methods used, draw diagrams of traffic flow for each.
+TODO: Examine simulation outcomes one-by-one. Probably group by traffic control methods used, draw diagrams of traffic flow for each.
 
 \subsection{Comparison of used models}
 
-Compare simulations and their results. See which parameters lead to best results.
+TODO: Compare simulations and their results. See which parameters lead to best results.
 
 \clearpage
 
-\section{Summary} 
+\section{Summary}
 
-Summary here. Pretty self-evident.
+TODO: Summary here. Pretty self-evident.
 
 \clearpage
 
