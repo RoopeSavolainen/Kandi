@@ -37,6 +37,7 @@
 \documentclass[english, 12pt, a4paper, elec, utf8, pdfa, online]{aaltothesis}
 %\documentclass[english,12pt,a4paper,dvips]{aaltothesis}
 
+\newcommand{\pubdate}{<Publish date>}
 %% Use the following options in the \documentclass macro above:
 %% your school: arts, biz, chem, elec, eng, sci
 %% the character encoding scheme used by your editor: utf8, latin1
@@ -60,7 +61,7 @@
 \thesisauthor{Roope Savolainen}
 \thesistitle{Modeling and analyzing Helsinki's traffic network using a microscopic simulator}
 \place{Espoo}
-\date{<DATE>}
+\date{\pubdate}
 \supervisor{Prof.\ Pekka Forsman}
 \advisor{Dr Themistoklis Charalambous}
 
@@ -93,7 +94,18 @@
 \keywords{liikennesimulaatio, liikennevirtateoria}
 
 \begin{abstractpage}[finnish]
-	Suomenkielinen tiivistelmä tähän.
+    {\footnotesize
+    Liikenteen ruuhkautuminen on yhteiskunnalle kallis ilmiö. Jos tieverkosto ei ole riittävän suurelle kulkuneuvomäärälle mitoitettu, sekä kaupallinen, että yksittäisten ihmisten siirtyminen paikasta toiseen on tehotonta. Tieverkon toimivuutta voidaan mitata muun muassa mittaamalla sen virtautta, joka kuvaa sitä, kuinka paljon ajoneuvoja tietyn pisteen läpi ajaa aikayksikössä. Oikeassa maailmassa tapahtuvien mittausten lisäksi tieverkon suorityskykyä voidaan mitata simuloimalla sen toimintaa erilaisissa tilanteissa. Näin on mahdollista tutkia myös esimerkiksi harvinaisempia tai hypoteettia tilanteita.
+
+    Liikennesimulaatiossa käytettävät mallit voidaan karkeasti jakaa kahteen ryhmään, mikrosimulaatioon ja makrosimulaatioon. Mikrosimulaatiossa jokainen ajoneuvo ja sen käyttäytyminen mallinnetaan yksilöllisesti. Makrosimulaatiossa huomiota ei kiinnitetä yksittäiseen ajoneuvoon, vaan liikennevirtaa käsitellään kokonaisuutena, jonka käyttäytyminen muistuttaa esimerkiksi nesteiden virtaamista, jolloin virran etenemistä kuvaillaan suureilla, kuten virtausmäärä tai liikenteen tiheys ja nopeus. Monesti liikennettä tutkittaessa kiinnostuneita ollaan juuri näistä makrotason käyttäytymistä kuvaavista suureista. Näitä suureita voidaan mitata myös mikrotason simulaatiosta tarkastelemalla yksittäisiä pisteitä. Tällöin mielenkiintoiset suureet saadaan tarkasteltaviksi, mutta simulaatiossa voidaan kuitenkin tarkastella yksittäisen ajoneuvon käyttäytymistä.
+
+    Liikenneverkon konkreettinen muokkaaminen on usein hyvin kallis operaatio. Tämän vuoksi liikenteen tehostaminen ilman muutoksia itse tieverkkoon on usein erittäin kustannustehokas tapa purkaa liikenneruuhkia. Yksi tapa tehostaa liikenteen kulkua olisi välittää ajoneuvoille reaaliaikaista dataa teiden ruuhkatilanteesta. Näin nykyään yleisten kuluttajienkin käytössä olevien navigaatiojärjestelmien olisi mahdollista käyttää ruuhkatilannetta optimaalista matkareittiä laskiessaan.
+
+    Tässä työssä tutkitaan Helsingin keskusta-alueen liikenneverkkoa simuloimalla sen toimintaa VisSim liikennesimulaatio-ohjelmiston avulla. VisSim mallintaa liikenteen mikrosimulaatio-mallilla, joten yksittäisten autojen käyttäytymistä voidaan tutkia ja ohjata ohjelmallisesti. Simulaatio käyttää A*-reitinhakualgoritmia, joka hyödyntää sekä maantieteellistä sijaintia, että liikenneverkon reaaliaikaista ruuhkatilannetta laskeakseen ajoneuvoille nopeimman mahdollisen reitin.
+
+    TODO: Tulokset, niiden merkitys tms.
+    }
+
 \end{abstractpage}
 
 \newpage
@@ -106,7 +118,7 @@
 %%their good and poor guidance.\\
 
 %%\vspace{5cm}
-%%Otaniemi, <DATE>
+%%Otaniemi, \pubdate
 
 %%\vspace{5mm}
 %%{\hfill Roope A.\ Savolainen \hspace{1cm}}
