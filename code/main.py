@@ -1,9 +1,11 @@
 import win32com.client as com
+import os
 from settings import *
 
 def main():
     vissim = com.Dispatch(COM_NAME)
-    vissim.LoadNet(FILENAME)
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    vissim.LoadNet(base_path + FILENAME)
     vissim.Simulation.RunContinuous()
 
 
