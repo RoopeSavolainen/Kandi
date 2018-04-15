@@ -9,9 +9,16 @@ def main():
     base_path = os.path.dirname(os.path.abspath(__file__))
     vissim.LoadNet(base_path + FILENAME)
     
+    use_congestion = False
     paths = routing.Pathfinder(vissim)
     
-    vissim.Simulation.RunContinuous()
+    vissim.Simulation.RunSingleStep()
+    while vissim.Simulation.AttValue('IsRunning'):
+        if vissim.Simulation.AttValue('SimSec') % PATHFINDING_PERIOD == 0 and use_congestion:
+            paths.update_congestion()
+        paths.update_vehicle_routes()
+
+        vissim.Simulation.RunSingleStep()
 
 
 if __name__ == '__main__':

@@ -46,6 +46,10 @@ class Pathfinder:
             self.congestion[self._get_link_index(dst), self._get_link_index(src)] = coeff
 
 
+    def update_vehicle_routes(self):
+        pass
+
+
     def _get_link_congestion(self, n):
         link = self._get_link(n)
         return 1.0 # TODO: implement congestion based coefficient
