@@ -1,5 +1,6 @@
 import routing
 
+from main import print_status
 from settings import *
 
 class SimulationRound:
@@ -26,6 +27,7 @@ class SimulationRound:
                 self.vissim.Simulation.SetAttValue('SimBreakAt', current+PATHFINDING_PERIOD)
                 self.paths.update_congestion()
                 self.paths.update_routes()
+                print_status('= Continuing simulation')
 
             self.vissim.Simulation.RunContinuous()
 
