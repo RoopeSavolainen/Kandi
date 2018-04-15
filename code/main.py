@@ -13,10 +13,11 @@ def main():
     paths = routing.Pathfinder(vissim)
     
     vissim.Simulation.RunSingleStep()
+    paths.update_routes()
     while vissim.Simulation.AttValue('IsRunning'):
         if vissim.Simulation.AttValue('SimSec') % PATHFINDING_PERIOD == 0 and use_congestion:
             paths.update_congestion()
-        paths.update_vehicle_routes()
+            paths.update_routes()
 
         vissim.Simulation.RunSingleStep()
 
