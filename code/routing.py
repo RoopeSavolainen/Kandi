@@ -45,7 +45,7 @@ class Pathfinder:
             src = int(conn.AttValue('FromLink'))
             dst = int(conn.AttValue('ToLink'))
 
-            coeff = _get_link_congestion(dst)
+            coeff = self._get_link_congestion(dst)
             self.congestion[self._get_link_index(dst), self._get_link_index(src)] = coeff
 
 

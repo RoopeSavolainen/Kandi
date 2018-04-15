@@ -1,39 +1,44 @@
 import win32com.client as com
 import os
+import sys
 from datetime import datetime
 
 from settings import *
+import simulation
 import routing
 
 def main():
+    print_status('Opening Vissim')
     vissim = com.Dispatch(COM_NAME)
-    print_status('Vissim open')
 
+    print_status('Loading network')
     base_path = os.path.dirname(os.path.abspath(__file__))
     vissim.LoadNet(base_path + FILENAME)
-    print_status('Net loaded')
     
-    use_congestion = False
+    print_status('Initializing pathfinding')
     paths = routing.Pathfinder(vissim)
 
-    print_status('Pathfinding initialized')
+    if DISABLE_GUI:
+        vissim.SuspendUpdateGUI()
     
-    vissim.Simulation.RunSingleStep()
-    paths.update_routes()
-    while vissim.Simulation.AttValue('IsRunning'):
-        if vissim.Simulation.AttValue('SimSec') % PATHFINDING_PERIOD == 0 and use_congestion:
-            paths.update_congestion()
-            paths.update_routes()
-            print_status('Congestion data and pathfinding updated')
+    for inflow in INFLOW_VALUES:
+        print_status('Running simulations with total vehicle inflow %d' % inflow)
 
-        vissim.Simulation.RunSingleStep()
+        print_status('Starting non-congestion run')
+        sim = simulation.SimulationRound(vissim, paths, inflow, False)
+        sim.run()
 
-    print_status('Simulation done')
+        print_status('Starting congestion run')
+        sim = simulation.SimulationRound(vissim, paths, inflow, True)
+        sim.run()
+
+    print_status('All simulations done')
 
 
 def print_status(msg):
     t = datetime.now().strftime('%H:%M:%S')
-    print('[%s]: %s' % (t, msg))
+    print('[%s] %s' % (t, msg))
+    sys.stdout.flush()
 
 if __name__ == '__main__':
     main()
