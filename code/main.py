@@ -6,6 +6,7 @@ from datetime import datetime
 from settings import *
 import simulation
 import routing
+import datacollector
 
 def main():
     print_status('Opening Vissim')
@@ -15,8 +16,10 @@ def main():
     base_path = os.path.dirname(os.path.abspath(__file__))
     vissim.LoadNet(base_path + FILENAME)
     
+    data = datacollector.DataCollector(vissim)
+
     print_status('Initializing pathfinding')
-    paths = routing.Pathfinder(vissim)
+    paths = routing.Pathfinder(vissim, data)
 
     if DISABLE_GUI:
         vissim.SuspendUpdateGUI()

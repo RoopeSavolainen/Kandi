@@ -3,6 +3,7 @@ import numpy
 import scipy.sparse
 
 from main import print_status
+import datacollector
 
 class Pathfinder:
     dists = numpy.ndarray([0,0])
@@ -19,8 +20,11 @@ class Pathfinder:
     goals = []
     routes = numpy.ndarray([0,0])
 
-    def __init__(self, vissim):
+    data = None
+
+    def __init__(self, vissim, data):
         self.vissim = vissim
+        self.data = data
 
         links = self.vissim.Net.Links.GetAll()
         self.main_links = filter(lambda c: int(c.AttValue('IsConn')) == 0, links)
@@ -44,6 +48,9 @@ class Pathfinder:
 
         self._init_routes()
         self.calculate_distances()
+
+        print_status('Creating data measurement points')
+        self.data.create_measurement_points(self.connectors)
 
 
     def calculate_distances(self):
@@ -78,8 +85,7 @@ class Pathfinder:
         for dec in self.vissim.Net.VehicleRoutingDecisionsStatic:
             src = self._get_link_index(dec.Link.AttValue('No'))
             for i in range(dec.VehRoutSta.Count):
-                route = dec.VehRoutSta[i]
-
+                route = dec.VehRoutSta.ItemByKey(i+1)
                 dst = self._get_link_index(route.DestLink.AttValue('No'))
                 dst_link = self.main_links[dst]
                 dst_pos = dst_link.AttValue('Length2D') - 1.0
@@ -117,8 +123,8 @@ class Pathfinder:
 
 
     def _get_link_congestion(self, n):
-        #link = self._get_link(n)
-        return 1.0 # TODO: implement congestion based coefficient
+        dens = self.data.get_density(n+1)
+        return 1.0 + dens # TODO: check this
 
 
     def _get_link(self, n):
