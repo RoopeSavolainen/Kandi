@@ -11,15 +11,26 @@ import datacollector
 def main():
     print_status('Opening Vissim')
     vissim = com.Dispatch(COM_NAME)
-
-    print_status('Loading network')
-    base_path = os.path.dirname(os.path.abspath(__file__))
-    vissim.LoadNet(base_path + FILENAME)
-    
     data = datacollector.DataCollector(vissim)
 
-    print_status('Initializing pathfinding')
-    paths = routing.Pathfinder(vissim, data)
+    path = os.path.dirname(os.path.abspath(__file__)) + FILENAME
+    pre_path = path[0:-5] + '-pre.inpx'
+    print(pre_path)
+    #input()
+
+    print_status('Loading network')
+    if os.path.isfile(pre_path):
+        print_status('Pre-processed network found')
+        vissim.LoadNet(pre_path)
+        paths = routing.Pathfinder(vissim, data, False)
+    else:
+        vissim.LoadNet(path)
+
+        print_status('Initializing pathfinding')
+        paths = routing.Pathfinder(vissim, data)
+
+        print_status('Saving as pre-processed network')
+        vissim.SaveNetAs(pre_path)
 
     if DISABLE_GUI:
         vissim.SuspendUpdateGUI()

@@ -16,7 +16,7 @@ class SimulationRound:
         self.use_congestion = use_congestion
 
         self.paths.update_routes()
-        # TODO: initialize vehicle inputs and measurements
+        # TODO: initialize vehicle inputs
 
 
     def run(self):

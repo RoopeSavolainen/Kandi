@@ -2,6 +2,7 @@ import win32com.client as com
 import numpy
 import scipy.sparse
 
+from settings import *
 from main import print_status
 import datacollector
 
@@ -13,6 +14,7 @@ class Pathfinder:
     connectors = []
 
     connections = {}
+    connections_rev = {}
     link_indices = {}
 
     use_congestion = False
@@ -22,7 +24,7 @@ class Pathfinder:
 
     data = None
 
-    def __init__(self, vissim, data):
+    def __init__(self, vissim, data, process=True):
         self.vissim = vissim
         self.data = data
 
@@ -40,17 +42,24 @@ class Pathfinder:
             dst = int(connector.AttValue('ToLink'))
             self.connections[i] = (src, dst)
 
+            src_i = self._get_link_index(src)
+            dst_i = self._get_link_index(dst)
+            self.connections_rev[(src_i, dst_i)] = i
+
         size = len(self.main_links)
         self.weights = numpy.zeros([size, size])
         self.congestion = numpy.full([size, size], 1.0)
 
         print_status('Pathfinding structures created (%d link segments)' % len(self.main_links))
 
-        self._init_routes()
+        if process:
+            self._init_routes()
+
         self.calculate_distances()
 
-        print_status('Creating data measurement points')
-        self.data.create_measurement_points(self.connectors)
+        if process:
+            print_status('Creating data measurement points')
+            self.data.create_measurement_points(self.connectors)
 
 
     def calculate_distances(self):
@@ -86,24 +95,32 @@ class Pathfinder:
             src = self._get_link_index(dec.Link.AttValue('No'))
             for i in range(dec.VehRoutSta.Count):
                 route = dec.VehRoutSta.ItemByKey(i+1)
+
                 dst = self._get_link_index(route.DestLink.AttValue('No'))
                 dst_link = self.main_links[dst]
-                dst_pos = dst_link.AttValue('Length2D') - 1.0
+                dst_pos = dst_link.AttValue('Length2D') - 0.1
 
                 newroute = []
+                newroute.append(self.main_links[src])
+                newroute.append(0.1)
                 via = src
                 while via != dst:
                     next_index = self.routes[i, via]
                     next_link = self.main_links[next_index]
 
+                    conn_index = self.connections_rev[(via, next_index)]
+                    conn = self.connectors[conn_index]
+
+                    newroute.append(conn)
+                    newroute.append(0.1)
+
                     newroute.append(next_link)
-                    newroute.append(1.0)
+                    newroute.append(0.1)
 
                     via = next_index
 
                 newroute.append(dst_link)
                 newroute.append(dst_pos)
-
 
 
     def _init_routes(self):
@@ -114,17 +131,18 @@ class Pathfinder:
             i = veh_in.AttValue('No')
 
             decisions = self.vissim.Net.VehicleRoutingDecisionsStatic
-            dec = decisions.AddVehicleRoutingDecisionStatic(i, link_in, 1)
+            dec = decisions.AddVehicleRoutingDecisionStatic(i, link_in, 0.1)
+
             for goal in self.goals:
                 goal_pos = goal.AttValue('Length2D')
 
                 j = dec.VehRoutSta.Count + 1
-                route = dec.VehRoutSta.AddVehicleRouteStatic(j, goal, goal_pos - 1.0)
+                route = dec.VehRoutSta.AddVehicleRouteStatic(j, goal, goal_pos - 0.1)
 
 
     def _get_link_congestion(self, n):
-        dens = self.data.get_density(n+1)
-        return 1.0 + dens # TODO: check this
+        flw = self.data.get_flow(n+1)
+        return 1.0 + flw * PATHFINDING_PERIOD # TODO: check this
 
 
     def _get_link(self, n):

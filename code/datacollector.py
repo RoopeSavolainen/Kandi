@@ -15,9 +15,8 @@ class DataCollector:
         points = self.vissim.Net.DataCollectionPoints
         measurements = self.vissim.Net.DataCollectionMeasurements
         for conn in connectors:
-            r = random.randint(1, conn.Lanes.Count) 
-            lane = conn.Lanes.ItemByKey(r)
-            p = points.AddDataCollectionPoint(points.Count+1, lane, 1.0)
+            lane = conn.Lanes.ItemByKey(1)
+            p = points.AddDataCollectionPoint(points.Count+1, lane, 0.0)
             m = measurements.AddDataCollectionMeasurement(measurements.Count+1)
             m.SetAttValue('DataCollectionPoints', points.Count)
 
