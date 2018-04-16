@@ -123,6 +123,8 @@ class Pathfinder:
                 newroute.append(dst_link)
                 newroute.append(dst_pos)
 
+                #dec.VehRoutSta.RemoveVehicleRouteStatic()
+
 
     def _init_routes(self):
         print_status('= Generating initial routes')

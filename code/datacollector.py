@@ -11,6 +11,10 @@ class DataCollector:
         self.vissim.Evaluation.SetAttValue('DataCollInterval', PATHFINDING_PERIOD)
 
 
+    def patch_detector_numbers(self):
+        pass
+
+
     def create_measurement_points(self, connectors):
         points = self.vissim.Net.DataCollectionPoints
         measurements = self.vissim.Net.DataCollectionMeasurements

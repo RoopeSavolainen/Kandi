@@ -15,8 +15,6 @@ def main():
 
     path = os.path.dirname(os.path.abspath(__file__)) + FILENAME
     pre_path = path[0:-5] + '-pre.inpx'
-    print(pre_path)
-    #input()
 
     print_status('Loading network')
     if os.path.isfile(pre_path):
