@@ -31,6 +31,7 @@ class Pathfinder:
         links = self.vissim.Net.Links.GetAll()
         self.main_links = filter(lambda c: int(c.AttValue('IsConn')) == 0, links)
         self.connectors = filter(lambda c: int(c.AttValue('IsConn')) == 1, links)
+        self.goals = filter(lambda l: l.AttValue('Goal') != 0, self.main_links)
 
         for i in range(len(self.main_links)):
             no = self.main_links[i].AttValue('No')
@@ -124,7 +125,6 @@ class Pathfinder:
 
 
     def _init_routes(self):
-        self.goals = filter(lambda l: l.AttValue('Goal') != 0, self.main_links)
         print_status('= Generating initial routes')
         for veh_in in self.vissim.Net.VehicleInputs:
             link_in = veh_in.Link
