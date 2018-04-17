@@ -123,7 +123,9 @@ class Pathfinder:
                 newroute.append(dst_link)
                 newroute.append(dst_pos)
 
-                #dec.VehRoutSta.RemoveVehicleRouteStatic()
+                dec.VehRoutSta.RemoveVehicleRouteStatic(route)
+                l = len(newroute)
+                dec.VehRoutSta.AddVehicleRouteStatic(i, dst_link, dst_pos)
 
 
     def _init_routes(self):

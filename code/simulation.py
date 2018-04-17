@@ -16,7 +16,18 @@ class SimulationRound:
         self.use_congestion = use_congestion
 
         self.paths.update_routes()
-        # TODO: initialize vehicle inputs
+        self.setup_vehicle_inputs(inflow)
+
+
+    def setup_vehicle_inputs(self, inflow):
+        weight_sum = 0.0
+        for i in self.vissim.Net.VehicleInputs:
+            weight_sum += i.AttValue('Volume (1)')
+
+        multi = inflow / weight_sum
+        for i in self.vissim.Net.VehicleInputs:
+            curr = i.AttValue('Volume (1)')
+            i.SetAttValue('Volume (1)', curr*multi)
 
 
     def run(self):
