@@ -32,6 +32,8 @@ def main():
 
     if DISABLE_GUI:
         vissim.SuspendUpdateGUI()
+
+    vissim.Simulation.SetAttValue('SimPeriod', SIMULATION_LENGTH)
     
     for inflow in INFLOW_VALUES:
         print_status('Running simulations with total vehicle inflow %d' % inflow)
