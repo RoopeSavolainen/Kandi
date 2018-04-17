@@ -97,6 +97,8 @@ class Pathfinder:
             for i in range(dec.VehRoutSta.Count):
                 route = dec.VehRoutSta.ItemByKey(i+1)
 
+                possible = True
+
                 dst = self._get_link_index(route.DestLink.AttValue('No'))
                 dst_link = self.main_links[dst]
                 dst_pos = dst_link.AttValue('Length2D') - 0.1
@@ -107,6 +109,10 @@ class Pathfinder:
                 via = src
                 while via != dst:
                     next_index = self.routes[i, via]
+                    if next_index < 0:
+                        possible = False
+                        break
+
                     next_link = self.main_links[next_index]
 
                     conn_index = self.connections_rev[(via, next_index)]
@@ -120,12 +126,12 @@ class Pathfinder:
 
                     via = next_index
 
-                newroute.append(dst_link)
-                newroute.append(dst_pos)
+                if possible:
+                    newroute.append(dst_link)
+                    newroute.append(dst_pos)
 
-                dec.VehRoutSta.RemoveVehicleRouteStatic(route)
-                l = len(newroute)
-                dec.VehRoutSta.AddVehicleRouteStatic(i, dst_link, dst_pos)
+                    dec.VehRoutSta.RemoveVehicleRouteStatic(route)
+                    dec.VehRoutSta.AddVehicleRouteStatic(i+1, dst_link, dst_pos)
 
 
     def _init_routes(self):
