@@ -8,7 +8,7 @@ class DataCollector:
     def __init__(self, vissim):
         self.vissim = vissim
         self.vissim.Evaluation.SetAttValue('DataCollCollectData', True)
-        self.vissim.Evaluation.SetAttValue('DataCollInterval', PATHFINDING_PERIOD)
+        self.vissim.Evaluation.SetAttValue('DataCollInterval', DATACOLLECTION_INTERVAL)
 
 
     def create_measurement_points(self, connectors):

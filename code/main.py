@@ -5,7 +5,6 @@ from datetime import datetime
 
 from settings import *
 import simulation
-import routing
 import datacollector
 
 def main():
@@ -13,37 +12,17 @@ def main():
     vissim = com.Dispatch(COM_NAME)
     data = datacollector.DataCollector(vissim)
 
-    path = os.path.dirname(os.path.abspath(__file__)) + FILENAME
-    pre_path = path[0:-5] + '-pre.inpx'
-
     print_status('Loading network')
-    if os.path.isfile(pre_path):
-        print_status('Pre-processed network found')
-        vissim.LoadNet(pre_path)
-        paths = routing.Pathfinder(vissim, data, False)
-    else:
-        vissim.LoadNet(path)
-
-        print_status('Initializing pathfinding')
-        paths = routing.Pathfinder(vissim, data)
-
-        print_status('Saving as pre-processed network')
-        vissim.SaveNetAs(pre_path)
+    path = os.path.dirname(os.path.abspath(__file__)) + FILENAME
+    vissim.LoadNet(path)
 
     if DISABLE_GUI:
         vissim.SuspendUpdateGUI()
 
-    vissim.Simulation.SetAttValue('SimPeriod', SIMULATION_LENGTH)
-    
     for inflow in INFLOW_VALUES:
-        print_status('Running simulations with total vehicle inflow %d' % inflow)
+        print_status('Running simulation with total vehicle inflow %d' % inflow)
 
-        print_status('Starting non-congestion run')
-        sim = simulation.SimulationRound(vissim, paths, inflow, False)
-        sim.run()
-
-        print_status('Starting congestion run')
-        sim = simulation.SimulationRound(vissim, paths, inflow, True)
+        sim = simulation.SimulationRound(vissim, inflow)
         sim.run()
 
     print_status('All simulations done')
