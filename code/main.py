@@ -29,6 +29,7 @@ def main():
 
     print_status('All simulations done')
     fig = figure.Figures('graphs\\')
+    fig.generate_graphs()
 
 
 def print_status(msg):

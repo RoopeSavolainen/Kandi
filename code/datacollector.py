@@ -55,7 +55,7 @@ class DataCollector:
         flow = self.get_flow(meas, period)
         if flow == 0:
             return 0.0
-        spd = self.get_speed(meas, period)
+        spd = self.get_speed(meas, period) * 16.67  # Conversion to m/min
         res = flow/spd
         return res if res is not None else 0.0
 

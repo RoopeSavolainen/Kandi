@@ -22,15 +22,17 @@ class Figures:
             basename = self.directory + key.replace(' ', '_')
 
             plt.scatter(dns, flw)
-            plt.xlabel('Density [vehicles/min]')
-            plt.ylabel('Flow')
+            plt.xlabel('Density [vehicles/m]')
+            plt.ylabel('Flow [vehicles/min]')
             name = basename + '_flw_dns.png'
             plt.savefig(name)
+            plt.close()
 
             plt.scatter(dns, spd)
-            plt.xlabel('Density')
-            plt.ylabel('Velocity')
+            plt.xlabel('Density [vehicles/m]')
+            plt.ylabel('Velocity [km/h]')
             name = basename + '_spd_dns.png'
             plt.savefig(name)
+            plt.close()
 
 
