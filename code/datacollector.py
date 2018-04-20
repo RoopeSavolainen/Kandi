@@ -42,6 +42,7 @@ class DataCollector:
     
     def get_flow(self, meas, period):
         res = meas.AttValue('Vehs  (Current,%d,All)' % period)
+        res *= 60 / DATACOLLECTION_INTERVAL  # Conversion to vehicles/min
         return res if res is not None else 0.0
 
     
