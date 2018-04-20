@@ -1,28 +1,39 @@
 from main import print_status
+import datacollector
 from settings import *
 
 class SimulationRound:
     vissim = None
-    total_inflow = None
+    inflow = None
+    data = None
 
-    def __init__(self, vissim, inflow):
+    original = []
+
+    def __init__(self, vissim, inflow, data):
         self.vissim = vissim
-        self.total_inflow = inflow
+        self.inflow = inflow
+        self.data = data
 
 
-    def setup_vehicle_inputs(self, inflow):
-        return # TODO: redo this
-        weight_sum = 0.0
-        for i in self.vissim.Net.VehicleInputs:
-            weight_sum += i.AttValue('Volume (1)')
-
-        multi = inflow / weight_sum
-        for i in self.vissim.Net.VehicleInputs:
-            curr = i.AttValue('Volume (1)')
-            i.SetAttValue('Volume (1)', curr*multi)
+    def setup_vehicle_inputs(self):
+        m = self.vissim.Net.DynamicAssignment.DynAssignDemands.ItemByKey(1).Matrix
+        self.original = [0] * m.RowCount * m.ColCount
+        for i in range(m.RowCount):
+            for j in range(m.ColCount):
+                val = m.GetValue(i+1, j+1)
+                self.original[i*m.ColCount + j] = val
+                m.SetValue(i+1, j+1, val*self.inflow)
 
 
     def run(self):
+        self.vissim.Simulation.SetAttValue('NumRuns', 1)
         self.vissim.Simulation.RunContinuous()
+
         pass # TODO: collect data
+        
+        m = self.vissim.Net.DynamicAssignment.DynAssignDemands.ItemByKey(1).Matrix
+        for i in range(m.RowCount):  # Reset demand matrix
+            for j in range(m.ColCount):
+                val = self.original[i*m.ColCount + j]
+                m.SetValue(i+1, j+1, val)
 

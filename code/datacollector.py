@@ -1,6 +1,7 @@
 import random
 
 from settings import *
+import json
 
 class DataCollector:
     vissim = None
@@ -11,14 +12,18 @@ class DataCollector:
         self.vissim.Evaluation.SetAttValue('DataCollInterval', DATACOLLECTION_INTERVAL)
 
 
-    def create_measurement_points(self, connectors):
-        points = self.vissim.Net.DataCollectionPoints
+    def save_measurements(self):
         measurements = self.vissim.Net.DataCollectionMeasurements
-        for conn in connectors:
-            lane = conn.Lanes.ItemByKey(1)
-            p = points.AddDataCollectionPoint(points.Count+1, lane, 0.0)
-            m = measurements.AddDataCollectionMeasurement(measurements.Count+1)
-            m.SetAttValue('DataCollectionPoints', points.Count)
+        result_file = open(RESULT_FILE, 'r')
+        data = json.load(result_file)
+        result_file.close()
+
+        for i in measurements.Count:
+            pass # TODO: modify data
+
+        result_file = open(RESULT_FILE, 'w')
+        json.dump(data, result_file)
+        result_file.close()
 
     
     def get_flow(self, n, entire_run=False):

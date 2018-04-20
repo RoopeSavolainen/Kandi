@@ -20,9 +20,10 @@ def main():
         vissim.SuspendUpdateGUI()
 
     for inflow in INFLOW_VALUES:
-        print_status('Running simulation with total vehicle inflow %d' % inflow)
+        print_status('Running simulation with inflow multiplier %f' % inflow)
 
-        sim = simulation.SimulationRound(vissim, inflow)
+        sim = simulation.SimulationRound(vissim, inflow, data)
+        sim.setup_vehicle_inputs()
         sim.run()
 
     print_status('All simulations done')
