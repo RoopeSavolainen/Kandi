@@ -6,6 +6,7 @@ from datetime import datetime
 from settings import *
 import simulation
 import datacollector
+import figure
 
 def main():
     print_status('Opening Vissim')
@@ -27,6 +28,7 @@ def main():
         sim.run()
 
     print_status('All simulations done')
+    fig = figure.Figures('graphs\\')
 
 
 def print_status(msg):
