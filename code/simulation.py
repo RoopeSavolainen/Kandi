@@ -29,7 +29,7 @@ class SimulationRound:
         self.vissim.Simulation.SetAttValue('NumRuns', 1)
         self.vissim.Simulation.RunContinuous()
 
-        pass # TODO: collect data
+        self.data.save_measurements()
         
         m = self.vissim.Net.DynamicAssignment.DynAssignDemands.ItemByKey(1).Matrix
         for i in range(m.RowCount):  # Reset demand matrix
