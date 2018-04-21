@@ -53,6 +53,26 @@
 \usepackage{cite}
 \usepackage{amsfonts,amssymb,amsbsy}
 
+\usepackage{listings}
+\definecolor{commentgreen}{rgb}{0,0.5,0}
+\lstset {
+    basicstyle=\ttfamily,
+    texcl=true,
+    tabsize=4,
+    keywordstyle=\color{blue},
+    commentstyle=\color{commentgreen},
+    identifierstyle=\color{black},
+    stringstyle=\color{red},
+    breaklines=true,
+    numbers=left,
+    numberstyle={\small \color{black}},
+    frame=L,
+    %xleftmargint=\parindent,
+    framexleftmargin=0.5pt,
+    showspaces=false,
+    showstringspaces=false
+}
+
 \usepackage{chngcntr}
 \counterwithin{figure}{section}
 
@@ -213,7 +233,7 @@ There are a number of macroscopic theories attempting to explain the behavior of
 
 TODO: weaknesses of the fundemental diagram approach
 
-\subsection{Three-phase model}
+\subsection{Three-phase model}zo
 
 Another model to explain real-life traffic dynamics is the three-phase traffic theory. Unlike the fundemental diagram approach, which divided traffic into two phases, the three-phase model introduces two new phases, synchronized flow and wide moving jam, that replace the congested phase of the earlier theories. Therefore, the three-phase model includes a total of three traffic phases, the free-flowing, the synchronized flow and the moving jam.
 
@@ -229,37 +249,97 @@ Instead, of line, an area can be drawn in the flow-density diagram, where possib
     \caption{The flow-density diagram in a three-phase model. The line F shows the flow-rates in the free-flowing phase as a function of traffic density. The area S shows potential flow-density points in the synchronized flow phase. }
 \end{figure}
 
-TODO: write about the S $\to$ J transition
+TODO: write about the S $\to$ J transition (in a nutshell, viewing time series of flow rate and velocity reveals the J phase easily, but it's not very visible in the flow-density diagram)
 
 \clearpage
 
 \section{Research material and methods}
 
-TODO: consider the following points
+In this thesis, a microsimulation of the Helsinki city centre area was carried out. The simulation was developed using the microsimulation software PTV Vissim. The goal of the simulation was to examine the capacity and perfomance of the road network in Helsinki's city centre. After running the simulation with varying parameters, its behavior was analyzed using the macroscopic frameworks outlined in the background section.
 
-* The simulation will be implemented in the VISSIM software. Pedestrians will most likely be ignored to keep the focus. Also need to decide on speed limits. It will probably be a reasonable amount of work to categorize the roads into 2 or 3 speed limit categories.
+\subsection{Map data}
 
-* What kind of an area will be included in the simulation? What kinds of roads? Helsinki centre, but will we include highways such as Länäri as exit/entry points?
+The first step in developing the simulation was creating the road network for the simulation. The simulated area is relatively large, but not large enough for modelling the roads by hand to be an unreasonably large task. However, map data of the desired area was available from OpenStreetMap, under the Open Database License. \cite{osm}
+
+After downloading the data, it was roughly cropped to the desired area and converted into a file format compatible with PTV Vissim, with another software, PTV Visum. Once the map data could be imported to Vissim, additional manual adjustments were made so that the simulation would work smoothly. These adjustments included removing small road sections that would not be used during the simulation and remaking some turns that were previously too sharp for the simulated vehicles to take.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{graphs/vissim_map}
+    \caption{The simulation area. Simulation roads shown with dark gray. Background map by OpenStreetMap\cite{osm}.}
+\end{figure}
+
+\subsection{Traffic}
+
+After the map data was prepared, traffic inputs and sinks were defined for the simulation. Several entry and exit points for vehicles were placed at roads that enter or leave the simulation area. The dynamic traffic assignment in Vissim models traffic by using traffic demand data for the entry and exit points of the network. In the simulation, traffic demand data was supplied using a demand matrix (i.e. a matrix with $n$ columns and $m$ rows, where $n$ is the number of exit points, $m$ is the number of entry points and the column $i$ on the row $j$ is the flow rate from entry point $j$ to exit point $i$).
+
+At first, these flow rates were simply estimated. However, the realism of the simulation is greatly dependant on having realistic traffic data and the validity of measurements based on this sort of data would be dubious. The demand values were refined with real-life road usage data from the area, published by the Helsinki Urban Environment Division \cite{trafficamounts}. Data for the biggets roads that were assigned as entry or exit points could be found in the dataset, but some had to be estimated. Traffic amounts between 8:00 and 9:00 were chosen, therefore the simulation should represent the morning commute period.
+
+TODO: weaknesses and unrealistic aspects of the setup. All traffic is passing through
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{graphs/vissim_map_entries}
+    \caption{The simulation area. Exit and entry points highlighted with yellow. Background map by OpenStreetMap\cite{osm}.}
+\end{figure}
+
+\subsection{Data collection}
+
+To analyze the macroscopic behavior of the simulation, the flow rate and the velocity of traffic should be measured from the simulation, as mentioned in the background section. Vissim features data collection points that can be placed on the and that automatically record the flow rate and the average velocity of traffic for the point in time periods of configurable length. Data collection points were placed several points in the simulation network. 
+
+After running the simulation, data for flow rate and average velocity could be measured for each measurement period. Based on the flow rate and velocity, traffic density could be calculated. Based on these quantities, an analysis of the network could be carried out.
+
+\subsection{Running the simulation}
+
+To run the simulation, Vissim's Component Object Model (COM) interface was used. The COM interface is an inter-process communication method. The Python programming language and the pywin32 library was used to interface with Vissim via the COM interface. This allowed for automated repeated runs of the simulation while varying parameters between runs. Collecting traffic data from Vissim was also done via the Python code and the collected data was visualized with matplotlib and its plotting functionality. All used code can be found in Appendix A.
+
+Each iteration of the simulation is run for 10 simulation minutes. Also the traffic demand is changed between each iteration by multiplying each cell of the demand matrix by a number, ranging from $0.5$ to $2.0$. We run a total of 8 rounds of simulation, collecting traffic data for each run. When all the runs have been done, we draw flow-density and speed-density diagrams and also time-series plots for all the separate simulation runs for flow rate and velocity.
+
+TODO: rewrite the previous paragraph properly
 
 \clearpage
 
 \section{Results}
 
-TODO: Results here. Exact structure is hard to know at this point, but could look something like this.
+TODO: Write this properly
+
+After running the simulations, we get the following figures for Länsiväylä.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{graphs/Länsiväylä_2_flw_dns.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{graphs/Länsiväylä_2_spd_dns.png}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{graphs/Länsiväylä_2_flw_time_8.png}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{graphs/Länsiväylä_2_spd_time_8.png}
+\end{figure}
+
+From the flow-density plot, we can see that during the simulation, the area reaches the S phase of the three-phase model. Also from the flow rate and velocity time-series plots we can see that at the pictured runs it reaches the J phase too.
+
+TODO: do this for all interesting data collection points, not just Länäri
 
 \subsection{Simulation results}
 
-TODO: Examine simulation outcomes one-by-one. Probably group by traffic control methods used, draw diagrams of traffic flow for each.
+TODO: Examine simulation outcomes
 
-\subsection{Comparison of used models}
-
-TODO: Compare simulations and their results. See which parameters lead to best results.
 
 \clearpage
 
 \section{Summary}
 
-TODO: Summary here. Pretty self-evident.
+TODO: Write this properly
+
+As can be seen, there are bottlenecks in the network. Congestion pricing has been shown to reduce congestion in the critical road sections. That is one possible solution.
 
 \clearpage
 
@@ -271,5 +351,24 @@ TODO: Summary here. Pretty self-evident.
 \clearpage
 
 \thesisappendix
+
+\section{Python code}
+
+Below is the Python code used to run the simulation and collect data. Running the code requires the Python libraries matplotlib and pywin32. The code is run by simply running \begin{verbatim}python main.py\end{verbatim}
+
+\begin{verbatim}main.py\end{verbatim}
+\lstinputlisting[language=Python]{code/main.py}
+
+\begin{verbatim}simulation.py\end{verbatim}
+\lstinputlisting[language=Python]{code/simulation.py}
+
+\begin{verbatim}datacollector.py\end{verbatim}
+\lstinputlisting[language=Python]{code/datacollector.py}
+
+\begin{verbatim}figure.py\end{verbatim}
+\lstinputlisting[language=Python]{code/figure.py}
+
+\begin{verbatim}settings.py\end{verbatim}
+\lstinputlisting[language=Python]{code/settings.py}
 
 \end{document}
