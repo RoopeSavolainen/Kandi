@@ -25,14 +25,18 @@ class DataCollector:
         num_periods = int(math.ceil(self.vissim.Simulation.AttValue('SimPeriod') / self.vissim.Evaluation.AttValue('DataCollInterval')))
         for m in measurements:
             name = m.AttValue('Name')
+            latest_id = 0
+            if name not in data:
+                data[name] = []
+            else:
+                latest_id = max(data[name], key=lambda x: x[3])[3]
             for n in range(num_periods):
                 flw = self.get_flow(m, n+1)
                 spd = self.get_speed(m, n+1)
                 dns = self.get_density(m, n+1)
+                time = n*DATACOLLECTION_INTERVAL
 
-                if name not in data:
-                    data[name] = []
-                data[name].append((flw, spd, dns))
+                data[name].append((flw, spd, dns, latest_id+1, time))
 
 
         result_file = open(RESULT_FILE, 'w')
