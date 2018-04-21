@@ -53,6 +53,9 @@
 \usepackage{cite}
 \usepackage{amsfonts,amssymb,amsbsy}
 
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+
 \degreeprogram{Automation and information technology}
 \major{Automation and systems engineering}
 \code{AUT}
@@ -99,9 +102,9 @@
 
     Liikennesimulaatiossa käytettävät mallit voidaan karkeasti jakaa kahteen ryhmään, mikrosimulaatioon ja makrosimulaatioon. Mikrosimulaatiossa jokainen ajoneuvo ja sen käyttäytyminen mallinnetaan yksilöllisesti. Makrosimulaatiossa huomiota ei kiinnitetä yksittäiseen ajoneuvoon, vaan liikennevirtaa käsitellään kokonaisuutena, jonka käyttäytyminen muistuttaa esimerkiksi nesteiden virtaamista, jolloin virran etenemistä kuvaillaan suureilla, kuten virtausmäärä tai liikenteen tiheys ja nopeus. Monesti liikennettä tutkittaessa kiinnostuneita ollaan juuri näistä makrotason käyttäytymistä kuvaavista suureista. Näitä suureita voidaan mitata myös mikrotason simulaatiosta tarkastelemalla yksittäisiä pisteitä. Tällöin mielenkiintoiset suureet saadaan tarkasteltaviksi, mutta simulaatiossa voidaan kuitenkin tarkastella yksittäisen ajoneuvon käyttäytymistä.
 
-    Liikenneverkon konkreettinen muokkaaminen on usein hyvin kallis operaatio. Tämän vuoksi liikenteen tehostaminen ilman muutoksia itse tieverkkoon on usein erittäin kustannustehokas tapa purkaa liikenneruuhkia. Yksi tapa tehostaa liikenteen kulkua olisi välittää ajoneuvoille reaaliaikaista dataa teiden ruuhkatilanteesta. Näin nykyään yleisten kuluttajienkin käytössä olevien navigaatiojärjestelmien olisi mahdollista käyttää ruuhkatilannetta optimaalista matkareittiä laskiessaan.
+    Liikenneverkon konkreettinen muokkaaminen on usein hyvin kallis operaatio. Tämän vuoksi liikenteen tehostaminen ilman muutoksia itse tieverkkoon on usein erittäin kustannustehokas tapa purkaa liikenneruuhkia. 
 
-    Tässä työssä tutkitaan Helsingin keskusta-alueen liikenneverkkoa simuloimalla sen toimintaa VisSim liikennesimulaatio-ohjelmiston avulla. VisSim mallintaa liikenteen mikrosimulaatio-mallilla, joten yksittäisten autojen käyttäytymistä voidaan tutkia ja ohjata ohjelmallisesti. Simulaatio käyttää A*-reitinhakualgoritmia, joka hyödyntää sekä maantieteellistä sijaintia, että liikenneverkon reaaliaikaista ruuhkatilannetta laskeakseen ajoneuvoille nopeimman mahdollisen reitin.
+    Tässä työssä tutkitaan Helsingin keskusta-alueen liikenneverkkoa simuloimalla sen toimintaa Vissim liikennesimulaatio-ohjelmiston avulla. Vissim mallintaa liikenteen mikrosimulaatio-mallilla, joten yksittäisten autojen käyttäytymistä voidaan tutkia ja ohjata ohjelmallisesti.
 
     TODO: Tulokset, niiden merkitys tms.
     }
@@ -132,17 +135,17 @@
 
 
 %% Symbols and abbreviations
-\mysection{Symbols and abbreviations}
-
-TODO: I wonder if I should keep this section, since it's going to be very short.
-
-\subsection*{Symbols}
-
-\begin{tabular}{ll}
-$Q$  & traffic flow rate  \\
-$\rho$              & traffic density  \\
-$v$              & velocity  \\
-\end{tabular}
+%%\mysection{Symbols and abbreviations}
+%%
+%%TODO: I wonder if I should keep this section, since it's going to be very short.
+%%
+%%\subsection*{Symbols}
+%%
+%%\begin{tabular}{ll}
+%%$Q$  & traffic flow rate  \\
+%%$\rho$              & traffic density  \\
+%%$v$              & velocity  \\
+%%\end{tabular}
 
 %%\subsection*{Operators}
 
@@ -180,29 +183,53 @@ This thesis will examine Helsinki's traffic network. The city centre of Helsinki
 
 Traffic flow research attempts to model the behavior of real-life traffic networks. Theoretical, empirically verified models of traffic can be useful in comparing traffic control methods and determining optimal ways to control traffic and minimize congestion.
 
-The goal of this thesis is to simulate Helsinki's traffic network using VisSim traffic simulation software and compare the effectiveness of different traffic control methods in minimizing traffic congestion. The thesis is divided into five sections. In the second section, the theoretical basis behind the used traffic simulation methods will be explored. The simulation methods and used material will be discussed in the third section. The results of the simulation will be presented in the fourth section. The fifth section contains a summary of the thesis.
+The goal of this thesis is to simulate Helsinki's traffic network using Vissim traffic simulation software and analyze the capacity of the network and the existence of possible bottlenecks. The thesis is divided into five sections. In the second section, the theoretical basis behind the used traffic simulation methods will be explored. The simulation methods and used material will be discussed in the third section. The results of the simulation will be presented in the fourth section. The fifth section contains a summary of the thesis.
 
 \clearpage
 
 \section{Background}
 
-\subsection{Traffic flow}
+\subsection{Microscopic and macroscopic simulation}
 
 The field of traffic flow examines vehicle traffic on road networks. There are several different models used in analyzing traffic flow. This thesis uses the microscopic and macroscopic models. The microscopic model is used to model the traffic in the developed simulation and values describing the macroscopic model will be derived from the simulation.
 
-Microscopic traffic flow modelling simulates the behavior of each individual vehicle. The basis of most microscopic models is the car-following model. It models the behavior of vehicles in such a way that they try to keep a distance determined by the speed of the vehicle to the vehicle in front of them. On top of this, the models based on car-following can specify the acceleration behavior, braking strategy and other more sophisticated properties of the modelled vehicles.
+Microscopic traffic flow modelling simulates the behavior of each individual vehicle. Two common approaches to microsimulation are the car-following models and the cellular automata based models. The car-following approach models the behavior of vehicles in such a way that they try to keep a time distance to the vehicle in front of them. On top of this, the models based on car-following can specify the acceleration behavior, braking strategy and other more sophisticated properties of the modelled vehicles. In cellular automata models, the road is divided into cells and the vehicles move between the cells in discrete steps. Compared to car-following models, cellular automata models tend to be considerably simpler and faster to execute. However, since cellular automata approaches are grid based, measurements from them are not as realistic as ones from car-following simulations.
 
-As opposed to microscopic models, macroscopic traffic flow models do not consider individual vehicles, but model the vehicle flow similarly to liquids and gases. The important quantities in this model are the flow density $\rho$, flow rate $Q$ and vehicle velocity $v$. The quantities are related by the flow-density relation
+As opposed to microscopic models, macroscopic traffic flow models do not consider individual vehicles, but model the vehicle flow similarly to liquids and gases. The important quantities of traffic in this model are the flow density $\rho$, flow rate $Q$ and vehicle velocity $v$. The quantities are related by the flow-density relation
 
 \[ Q = \rho v .\]
 
-These macroscopic quantities are useful in describing the congestion and throughput of the observed roads. Flow can be measured from a microscopic model by counting the number of vehicles passing a point on a road. Thus, if we know the average velocities of the vehicles, we can also calculate the density of the traffic in the model. \cite{treiber}
+As the macroscopic quantities are useful in analyzing a traffic network, it is important that they can be measured in a microscopic simulation. Flow rate can be measured from a microscopic model by counting the number of vehicles passing a point on a road. Also the velocity of vehicles is explicitly modeled in microscopic simulation models, so it is also possible to get the average velocity of a group of vehicles. Based on the flow rate and velocity we can also calculate the density of the traffic in the model. \cite{treiber}
 
-A useful tool of macroscopic traffic analysis is the fundemental diagram of traffic flow. The flow rate of traffic at a single point on a road can be considered as a function of the flow density. The maximum of this function is found at point $\rho_c$, which is called the critical density. After the density of traffic passes this point, congestion starts to form.\cite{kerner}
+\subsection{Fundemental diagram of traffic flow}
 
-\subsection{Pathfinding}
+There are a number of macroscopic theories attempting to explain the behavior of traffic. A widely-used approach is the fundemental diagram of traffic flow. In these models traffic flow is considered a function of traffic density. The diagram is triangular and the maximum value of flow rate is at density $\rho_c$, which is called the critical density. Before reaching the critical density, the flow rate increases with the density. After the traffic passes the critical density, congestion starts to form and the flow rate declines. Hence, under the fundemental diagram based approaches, traffic is divided into two distrinct phases, free-flowing and congested, depending on the traffic density. \cite {lighthillwhitham}
 
-TODO: Write about basic graph theory and pathfinding once progress has been done on the simulation and I know what needs to be explained. Maybe just graphs and Dijkstra?
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{graphs/fund_diagram}
+    \caption{The fundemental diagram of traffic flow}
+\end{figure}
+
+TODO: weaknesses of the fundemental diagram approach
+
+\subsection{Three-phase model}
+
+Another model to explain real-life traffic dynamics is the three-phase traffic theory. Unlike the fundemental diagram approach, which divided traffic into two phases, the three-phase model introduces two new phases, synchronized flow and wide moving jam, that replace the congested phase of the earlier theories. Therefore, the three-phase model includes a total of three traffic phases, the free-flowing, the synchronized flow and the moving jam.
+
+Free-flowing traffic refers is used similarly as in fundemental diagram based approaches. It is the phase when an increase in traffic density will not cause congestion. Synchronized flow refers to a state where the traffic flow is mostly continuous and there are few stops. Also in synchronized flow, the traffic limits the speeds of all vehicles to a certain value, so the speeds tend to be locally synchronized. The wide moving jam phase is a state, where all the vehicles in the jam have the same mean speed and where the mean speed persists through possible traffic bottlenecks. These phases are referred to as F (free-flowing), S (synchronized flow) and J (wide moving jam) in some contexts in this thesis.
+
+The phase transition F $\to$ S always occurs, when the traffic density exceeds $\rho_c$. This can be caused by bottlenecks, such as changes in the number of available lanes. If the traffic density, however is close to $\rho_c$, but still under it, an F $\to$ S transition can also be caused by random local disturbances of the traffic, such as a driver braking in free-flowing traffic. These probability of these local disturbances causing the transition is higher near the critical density. Because traffic can transition to the synchronized flow phase even before the critical density, the flow rate in the synchronized flow phase cannot be represented as a funtion of flow density.
+
+Instead, of line, an area can be drawn in the flow-density diagram, where possible points in the synchronized flow phase lie. The upper bound of the area describes the largest flow rate that a density can support. This line is the situation where drivers keep the lowest safety gap that they can. The lower edge is a state where the time gaps between the vehicles in traffic grow so large that the driver decides to accelerate and close the gap. \cite{kerner}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{graphs/3phase_fs_diagram}
+    \caption{The flow-density diagram in a three-phase model. The line F shows the flow-rates in the free-flowing phase as a function of traffic density. The area S shows potential flow-density points in the synchronized flow phase. }
+\end{figure}
+
+TODO: write about the S $\to$ J transition
 
 \clearpage
 
