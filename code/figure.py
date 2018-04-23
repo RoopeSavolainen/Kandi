@@ -20,7 +20,7 @@ class Figures:
             dns = [x[2] for x in data[key]]
             ids = [x[3] for x in data[key]]
 
-            basename = self.directory + key.replace(' ', '_').replace('ä', 'a').replace('ö', 'o')
+            basename = self.directory + key.replace(' ', '_').replace('\xc3\xa4'.decode('iso-8859-1'), 'a')
 
             plt.scatter(dns, flw)
             plt.xlabel('Density [vehicles/m]')
