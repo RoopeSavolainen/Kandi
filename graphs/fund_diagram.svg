@@ -58,8 +58,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="221.44224"
-     inkscape:cy="628.56061"
+     inkscape:cx="87.513667"
+     inkscape:cy="624.63204"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -80,7 +80,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -100,10 +100,11 @@
        id="path4538"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.13229168;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:1.05833346,1.05833346;stroke-dashoffset:0"
-       d="m 44.979166,126.34375 v 41.01042 0"
+       style="fill:none;stroke:#000000;stroke-width:0.13229167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833346, 1.05833346;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 44.979167,121.05208 -10e-7,46.30209 v 0"
        id="path4540"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
@@ -174,13 +175,13 @@
          y="171.657"
          style="font-size:1.41111112px;stroke-width:0.26458332;-inkscape-font-specification:'TeX Gyre Termes Math';font-family:'TeX Gyre Termes Math';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal">C</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:0.127;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 23.8125,121.05208 c 0,-3.96875 10.583333,0 10.583333,-3.96875"
        id="path4977"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:0.127;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 34.395833,117.08333 c 0,3.96875 10.583334,0 10.583333,3.96875"
        id="path4979"
        inkscape:connector-curvature="0"
@@ -197,13 +198,13 @@
          y="115.90215"
          style="stroke-width:0.26458332;-inkscape-font-specification:'TeX Gyre Termes';font-family:'TeX Gyre Termes';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Free-flowing</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:0.127;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 44.979167,121.05208 c 0,-3.96875 17.197916,0 17.197916,-3.96875"
        id="path4977-3"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:0.127;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 62.177083,117.08333 c 0,3.96875 17.197918,0 17.197917,3.96875"
        id="path4979-6"
        inkscape:connector-curvature="0"
@@ -219,5 +220,11 @@
          x="55.804398"
          y="116.03578"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Termes';-inkscape-font-specification:'TeX Gyre Termes';stroke-width:0.26458332">Congested</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.13229169;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833347, 1.05833347;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 79.375001,121.05208 -10e-7,46.30209 v 0"
+       id="path4540-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
   </g>
 </svg>
