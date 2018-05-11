@@ -37,7 +37,7 @@
 \documentclass[english, 12pt, a4paper, elec, utf8, pdfa, online]{aaltothesis}
 %\documentclass[english,12pt,a4paper,dvips]{aaltothesis}
 
-\newcommand{\pubdate}{<Publish date>}
+\newcommand{\pubdate}{11.5.2018}
 %% Use the following options in the \documentclass macro above:
 %% your school: arts, biz, chem, elec, eng, sci
 %% the character encoding scheme used by your editor: utf8, latin1
@@ -74,7 +74,7 @@
 }
 
 \usepackage{chngcntr}
-\counterwithin{figure}{section}
+%%\counterwithin{figure}{section}
 
 \degreeprogram{Automation and information technology}
 \major{Automation and systems engineering}
@@ -90,7 +90,7 @@
 
 \uselogo{aaltoRed}{''}
 
-\keywords{traffic simulation\spc traffic flow theory}
+\keywords{traffic simulation\spc traffic flow theory\spc fundemental diagram of traffic flow\spc three-phase traffic theory}
 \thesisabstract{
 	Abstract here.
 }
@@ -104,7 +104,15 @@
 \makecopyrightpage
 
 \begin{abstractpage}[english]
-	\abstracttext{}
+	\abstracttext{
+    Traffic analysis is the field that studies traffic networks, their behavior and performance. Traffic analysis is an important tool in optimizing and improving society's vital infrastructure. Traffic analysis can be used to identify bottlenecks in a traffic network, find underlying causes for traffic jams and optimize the usage of roads.
+
+    Traffic analysis uses traffic flow models to predict the behavior of traffic networks. Traffic flow models can be roughly divided into two distinct categories; microscopic and macroscopic traffic flow models. In a microscopic model, individial vehicles are modelled using some kinds of behavioral models, whereas in macroscopic models, the traffic is modelled as a whole and described using macroscopic quantities, such as traffic flow and velocity.
+
+    The two traffic flow models discussed in the thesis are the fundemental diagram of traffic flow and the three-phase model of traffic flow. The fundemental diagram approach assumes that the flow rate of traffic can be expressed as a function of traffic density, where the flow rate increases along with the density, until a certain density is hit, after which congestion starts to form and the flow rate begins to diminish. The three-phase model is a refined version of the fundemental diagram approach, where the congestion phase is divided into two phases. First, a synchronized traffic phase forms, which can be thought as an equilibrium between free-flowing traffic and congestion. From that phase, the traffic can transition into a jammed phase, where the velocity of all vehicles drops significantly.
+
+    In this thesis, a microscopically modelled traffic simulation of Helsinki's city centre was created and analyzed. Its behavior was measured and compared to the aforementioned theoretical traffic analysis theories. The results show that that the three-phase model describes the microscopic simulation rather accurately.
+    }
 \end{abstractpage}
 
 \newpage
@@ -114,19 +122,21 @@
 \degreeprogram{Automaatio- ja informaatioteknologia}
 %\department{Elektroniikan ja nanotekniikan laitos}
 \major{Automaatio- ja systeemitekniikka}
-\keywords{liikennesimulaatio, liikennevirtateoria}
+\keywords{liikennesimulaatio, liikennevirtateoria, liikennevirran perusdiagrammi, kolmivaiheinen liikennemalli}
 
 \begin{abstractpage}[finnish]
-    {\footnotesize
+    {\scriptsize
     Liikenteen ruuhkautuminen on yhteiskunnalle kallis ilmiö. Jos tieverkosto ei ole riittävän suurelle kulkuneuvomäärälle mitoitettu, sekä kaupallinen, että yksittäisten ihmisten siirtyminen paikasta toiseen on tehotonta. Tieverkon toimivuutta voidaan mitata muun muassa mittaamalla sen virtautta, joka kuvaa sitä, kuinka paljon ajoneuvoja tietyn pisteen läpi ajaa aikayksikössä. Oikeassa maailmassa tapahtuvien mittausten lisäksi tieverkon suorityskykyä voidaan mitata simuloimalla sen toimintaa erilaisissa tilanteissa. Näin on mahdollista tutkia myös esimerkiksi harvinaisempia tai hypoteettia tilanteita.
 
     Liikennesimulaatiossa käytettävät mallit voidaan karkeasti jakaa kahteen ryhmään, mikrosimulaatioon ja makrosimulaatioon. Mikrosimulaatiossa jokainen ajoneuvo ja sen käyttäytyminen mallinnetaan yksilöllisesti. Makrosimulaatiossa huomiota ei kiinnitetä yksittäiseen ajoneuvoon, vaan liikennevirtaa käsitellään kokonaisuutena, jonka käyttäytyminen muistuttaa esimerkiksi nesteiden virtaamista, jolloin virran etenemistä kuvaillaan suureilla, kuten virtausmäärä tai liikenteen tiheys ja nopeus. Monesti liikennettä tutkittaessa kiinnostuneita ollaan juuri näistä makrotason käyttäytymistä kuvaavista suureista. Näitä suureita voidaan mitata myös mikrotason simulaatiosta tarkastelemalla yksittäisiä pisteitä. Tällöin mielenkiintoiset suureet saadaan tarkasteltaviksi, mutta simulaatiossa voidaan kuitenkin tarkastella yksittäisen ajoneuvon käyttäytymistä.
 
     Liikenneverkon konkreettinen muokkaaminen on usein hyvin kallis operaatio. Tämän vuoksi liikenteen tehostaminen ilman muutoksia itse tieverkkoon on usein erittäin kustannustehokas tapa purkaa liikenneruuhkia. 
 
-    Tässä työssä tutkitaan Helsingin keskusta-alueen liikenneverkkoa simuloimalla sen toimintaa Vissim liikennesimulaatio-ohjelmiston avulla. Vissim mallintaa liikenteen mikrosimulaatio-mallilla, joten yksittäisten autojen käyttäytymistä voidaan tutkia ja ohjata ohjelmallisesti.
+    Kaksi makrotason liikenneanalyysin mallia, joita tässä työssä tarkastellaan, ovat liikennevirran perusdiagrammiin perustuva analyysi, sekä liikenteen kolmivaihemalli. Liikennevirran perusdiagrammiksi kutsutaan kuvaajaa, jossa liikenteen virtausmäärä on esitetty liikennetiheyden funktiona. Perusdiagrammin keskeinen periaate on, että virtausmäärä kasvaa lineaarisesti tiheyden kasvaessa, kunnes saavutetaan tietty, tieosuudelle ominainen tiheys, jonka ohittamisen jälkeen tieosuus alkaa ruuhkautua ja virtausmäärä laskea lineaarisesti.
 
-    TODO: Tulokset, niiden merkitys tms.
+    Perusdiagrammi on tieteellisen liikenneanalyysin vanhimpia työkaluja, mutta sen heikkoutena voidaan pitää sitä, ettei se kuvaa ruuhkien syntymistä kovinkaan tarkasti, tämän vuoksi on kehitetty uudempia malleja, jotka kuvaavat ruuhkautumista tarkemmin. Yksi näistä on kolmivaiheinen liikennemalli, jossa perusdiagrammin jälkimmäinen osa on jaettu kahteen osaan, niin sanottuun synkronoidun liikenteen osaan ja ruuhkaosaan. Tämä malli vastaa todellista liikennettä perusdiagrammia tarkemmin.
+
+    Tässä työssä tutkittiin Helsingin keskusta-alueen liikenneverkkoa simuloimalla sen toimintaa Vissim-liikennesimulaatio-ohjelmiston avulla. Vissim mallintaa liikenteen mikrosimulaatio-mallilla, joten yksittäisten autojen käyttäytymistä voidaan tutkia ja ohjata ohjelmallisesti. Simulaatiosta kerättiin makrotason mittausdataa, jonka pohjalta liikenneverkon käyttäytymistä voitiin analysoida käyttämällä edellämainittuja makrotason malleja. Työssä tarkasteltiin, kuinka mallit suoriutuvat mikrotason simulaation tulosten ennustamisesta. Kun simulaatio suoritettiin ja sen käyttäytiminen analysoitiin, todettiin kolmivaiheisen liikennemallin kuvaavan lopputuloksia hyvällä tarkkuudella.
     }
 
 \end{abstractpage}
@@ -153,44 +163,6 @@
 
 \thesistableofcontents
 
-
-%% Symbols and abbreviations
-%%\mysection{Symbols and abbreviations}
-%%
-%%TODO: I wonder if I should keep this section, since it's going to be very short.
-%%
-%%\subsection*{Symbols}
-%%
-%%\begin{tabular}{ll}
-%%$Q$  & traffic flow rate  \\
-%%$\rho$              & traffic density  \\
-%%$v$              & velocity  \\
-%%\end{tabular}
-
-%%\subsection*{Operators}
-
-%%\begin{tabular}{ll}
-%%$\nabla \times \mathbf{A}$              & curl of vectorin $\mathbf{A}$\\
-%%$\displaystyle\frac{\mbox{d}}{\mbox{d} t}$ & derivative with respect to
-%%variable $t$\\[3mm]
-%%$\displaystyle\frac{\partial}{\partial t}$  & partial derivative with respect
-%%to variable $t$ \\[3mm]
-%%$\sum_i $                       & sum over index $i$\\
-%%$\mathbf{A} \cdot \mathbf{B}$    & dot product of vectors $\mathbf{A}$ and
-%%$\mathbf{B}$
-%%\end{tabular}
-
-%%\subsection*{Abbreviations}
-
-%%\begin{tabular}{ll}
-%%AC         & alternating current \\
-%%APLAC      & an object-oriented analog circuit simulator and design tool \\
-%%           & (originally Analysis Program for Linear Active Circuits) \\
-%%BCS        & Bardeen-Cooper-Schrieffer \\ %% dash between the names
-%%DC         & direct current \\
-%%TEM        & transverse eletromagnetic
-%%\end{tabular}
-
 \cleardoublepage
 
 \section{Introduction}
@@ -203,11 +175,11 @@ This thesis will examine Helsinki's traffic network. The city centre of Helsinki
 
 Traffic flow research attempts to model the behavior of real-life traffic networks. Theoretical, empirically verified models of traffic can be useful in comparing traffic control methods and determining optimal ways to control traffic and minimize congestion.
 
-The goal of this thesis is to simulate Helsinki's traffic network using Vissim traffic simulation software and analyze the capacity of the network and the existence of possible bottlenecks. The thesis is divided into five sections. In the second section, the theoretical basis behind the used traffic simulation methods will be explored. The simulation methods and used material will be discussed in the third section. The results of the simulation will be presented in the fourth section. The fifth section contains a summary of the thesis.
+The goal of this thesis is to simulate Helsinki's traffic network using Vissim traffic simulation software and analyze its behavior using traffic flow theories. The thesis is divided into five sections. In section \ref{bg}, the theoretical basis behind the used traffic simulation methods will be explored. The simulation methods and used material will be described in section \ref{experiment}. The results of the simulation will be presented in section \ref{res}. Analysis of the results will be conducted in section \ref{discussion}.
 
 \clearpage
 
-\section{Background}
+\section{Background} \label{bg}
 
 \subsection{Microscopic and macroscopic simulation}
 
@@ -231,17 +203,15 @@ There are a number of macroscopic theories attempting to explain the behavior of
     \caption{The fundemental diagram of traffic flow}
 \end{figure}
 
-TODO: weaknesses of the fundemental diagram approach
-
-\subsection{Three-phase model}zo
+\subsection{Three-phase model}
 
 Another model to explain real-life traffic dynamics is the three-phase traffic theory. Unlike the fundemental diagram approach, which divided traffic into two phases, the three-phase model introduces two new phases, synchronized flow and wide moving jam, that replace the congested phase of the earlier theories. Therefore, the three-phase model includes a total of three traffic phases, the free-flowing, the synchronized flow and the moving jam.
 
-Free-flowing traffic refers is used similarly as in fundemental diagram based approaches. It is the phase when an increase in traffic density will not cause congestion. Synchronized flow refers to a state where the traffic flow is mostly continuous and there are few stops. Also in synchronized flow, the traffic limits the speeds of all vehicles to a certain value, so the speeds tend to be locally synchronized. The wide moving jam phase is a state, where all the vehicles in the jam have the same mean speed and where the mean speed persists through possible traffic bottlenecks. These phases are referred to as F (free-flowing), S (synchronized flow) and J (wide moving jam) in some contexts in this thesis.
+Free-flowing traffic refers is used similarly as in fundemental diagram based approaches. It is the phase when an increase in traffic density will not cause congestion. Synchronized flow refers to a state where the traffic flow is mostly continuous and there are few stops. Also in synchronized flow, the traffic limits the velocities of all vehicles to a certain value, so the velocities tend to be locally synchronized. The wide moving jam phase is a state, where all the vehicles in the jam have the same mean velocity and where the mean velocity persists through possible traffic bottlenecks. These phases are referred to as F (free-flowing), S (synchronized flow) and J (wide moving jam) in some contexts in this thesis.
 
 The phase transition F $\to$ S always occurs, when the traffic density exceeds $\rho_c$. This can be caused by bottlenecks, such as changes in the number of available lanes. If the traffic density, however is close to $\rho_c$, but still under it, an F $\to$ S transition can also be caused by random local disturbances of the traffic, such as a driver braking in free-flowing traffic. These probability of these local disturbances causing the transition is higher near the critical density. Because traffic can transition to the synchronized flow phase even before the critical density, the flow rate in the synchronized flow phase cannot be represented as a funtion of flow density.
 
-Instead, of line, an area can be drawn in the flow-density diagram, where possible points in the synchronized flow phase lie. The upper bound of the area describes the largest flow rate that a density can support. This line is the situation where drivers keep the lowest safety gap that they can. The lower edge is a state where the time gaps between the vehicles in traffic grow so large that the driver decides to accelerate and close the gap. \cite{kerner}
+Instead of a line, an area can be drawn in the flow-density diagram, where possible points in the synchronized flow phase lie. The upper bound of the area describes the largest flow rate that a density can support. This line is the situation where drivers keep the lowest safety gap that they can. The lower edge is a state where the time gaps between the vehicles in traffic grow so large that the driver decides to accelerate and close the gap.
 
 \begin{figure}[h]
     \centering
@@ -249,11 +219,17 @@ Instead, of line, an area can be drawn in the flow-density diagram, where possib
     \caption{The flow-density diagram in a three-phase model. The line F shows the flow-rates in the free-flowing phase as a function of traffic density. The area S shows potential flow-density points in the synchronized flow phase. }
 \end{figure}
 
-TODO: write about the S $\to$ J transition (in a nutshell, viewing time series of flow rate and velocity reveals the J phase easily, but it's not very visible in the flow-density diagram)
+The transition S $\to$ J is usually caused by disturbances of traffic, while in the S phase. This can cause the traffic to jam and the vehicle flow to slow down significantly. This is easy to see by examining a time series of vehicle velocity. \cite{kerner}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{graphs/3phase_vt}
+    \caption{The time series of vehicle velocities in a traffic system, where the traffic temporarily becomes jammed, according to the three-phase model. $S$ and $J$ phases are notated. }
+\end{figure}
 
 \clearpage
 
-\section{Research material and methods}
+\section{Research material and methods} \label{experiment}
 
 In this thesis, a microsimulation of the Helsinki city centre area was carried out. The simulation was developed using the microsimulation software PTV Vissim. The goal of the simulation was to examine the capacity and perfomance of the road network in Helsinki's city centre. After running the simulation with varying parameters, its behavior was analyzed using the macroscopic frameworks outlined in the background section.
 
@@ -265,7 +241,7 @@ After downloading the data, it was roughly cropped to the desired area and conve
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\textwidth]{graphs/vissim_map}
+    \includegraphics[width=0.9\textwidth]{graphs/vissim_map}
     \caption{The simulation area. Simulation roads shown with dark gray. Background map by OpenStreetMap\cite{osm}.}
 \end{figure}
 
@@ -275,15 +251,15 @@ After the map data was prepared, traffic inputs and sinks were defined for the s
 
 At first, these flow rates were simply estimated. However, the realism of the simulation is greatly dependant on having realistic traffic data and the validity of measurements based on this sort of data would be dubious. The demand values were refined with real-life road usage data from the area, published by the Helsinki Urban Environment Division \cite{trafficamounts}. Data for the biggets roads that were assigned as entry or exit points could be found in the dataset, but some had to be estimated. Traffic amounts between 8:00 and 9:00 were chosen, therefore the simulation should represent the morning commute period.
 
-TODO: weaknesses and unrealistic aspects of the setup. All traffic is passing through
+This approach of modelling traffic amounts was chosen because it was easy to implement and iterate on during the development of the simulation. However, it can also bring inaccuracies to the simulation. In the simulation, all traffic runs through the simulated traffic network due to the nature of the traffic demand modelling, but this is not the case in reality. In the real environment we're simulating, there is also traffic inside the simulation area, that this simulation fails to account for. Examining the effects of these inaccuracies and developing a more accurate simulation could be subjects for further work.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\textwidth]{graphs/vissim_map_entries}
+    \includegraphics[width=0.9\textwidth]{graphs/vissim_map_entries}
     \caption{The simulation area. Exit and entry points highlighted with yellow. Background map by OpenStreetMap\cite{osm}.}
 \end{figure}
 
-\subsection{Data collection}
+\subsection{Data collection} \label{data}
 
 To analyze the macroscopic behavior of the simulation, the flow rate and the velocity of traffic should be measured from the simulation, as mentioned in the background section. Vissim features data collection points that can be placed on the and that automatically record the flow rate and the average velocity of traffic for the point in time periods of configurable length. Data collection points were placed several points in the simulation network. 
 
@@ -291,55 +267,68 @@ After running the simulation, data for flow rate and average velocity could be m
 
 \subsection{Running the simulation}
 
-To run the simulation, Vissim's Component Object Model (COM) interface was used. The COM interface is an inter-process communication method. The Python programming language and the pywin32 library was used to interface with Vissim via the COM interface. This allowed for automated repeated runs of the simulation while varying parameters between runs. Collecting traffic data from Vissim was also done via the Python code and the collected data was visualized with matplotlib and its plotting functionality. All used code can be found in Appendix A.
+Once developed, the simulation was executed repeatedly. Each of the simulation runs was 30 minutes long in simulation time. In order to gather a comprehensive set of data on the traffic network usage, the traffic demand was adjusted between the runs by defining a factor for each run and multiplying all values of the traffic demand matrix by the factor. 6 different values ranging from $0.5$ to $2.5$ were used for different runs A full data set, as described in section \ref{data}, was collected for all runs. After data for the simulation runs was collected, it was used to analyze the traffic at the set data collection points. Velocity time series plots were drawn for all different traffic demand amounts. Also flow-density and velocity-density diagrams were drawn for all data measurement points, aggregating data from all the runs with differing traffic demands.
 
-Each iteration of the simulation is run for 10 simulation minutes. Also the traffic demand is changed between each iteration by multiplying each cell of the demand matrix by a number, ranging from $0.5$ to $2.0$. We run a total of 8 rounds of simulation, collecting traffic data for each run. When all the runs have been done, we draw flow-density and speed-density diagrams and also time-series plots for all the separate simulation runs for flow rate and velocity.
-
-TODO: rewrite the previous paragraph properly
+Vissim's Component Object Model (COM) interface was used to run the simulation. The COM interface is an inter-process communication method that allows for programmatic manipulation of the traffic network and automated usage of the software. The Python programming language and its pywin32 library were used to interface with Vissim via the COM interface to automate varying the traffic demand amounts and running the simulation. Collecting traffic data from Vissim was also done via the Python code and the collected data was used to draw the aforementioned diagrams the Python library matplotlib. All used code can be found in Appendix \ref{code}.
 
 \clearpage
 
-\section{Results}
+\section{Results} \label{res}
 
-TODO: Write this properly
+After running the developed simulation and collecting traffic data, diagrams were examined to find points of interest in the traffic network. Points of particular interest would be points were the traffic gets jammed as the traffic flow increases. Diagrams \ref{fig:1} through \ref{fig:4} show selected data collection points that are going to be examined in section \ref{discussion}. These measurements were selected on the basis that they visualize the phenomena described in section \ref{bg}. Many of the measurement points also produced results similar to the ones pictured here, so they aren't separately discussed.
 
-After running the simulations, we get the following figures for Länsiväylä.
+Appendix \ref{graphs} contains flow-density and speed time series graphs for all used data collection points.
 
-\begin{figure}[h]
+\begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.75\textwidth]{graphs/Länsiväylä_2_flw_dns.png}
+    \includegraphics[width=0.9\textwidth]{graphs/Lansivayla_2_flw_dns.png}
+    \includegraphics[width=0.9\textwidth]{graphs/Lansivayla_2_spd_time_4.png}
+    \caption{Flow-density and velocity time series diagrams for Länsiväylä, measurement point 2.}
+    \label{fig:1}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.75\textwidth]{graphs/Länsiväylä_2_spd_dns.png}
-\end{figure}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.75\textwidth]{graphs/Länsiväylä_2_flw_time_8.png}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.75\textwidth]{graphs/Länsiväylä_2_spd_time_8.png}
+    \includegraphics[width=0.9\textwidth]{graphs/Mechelininkatu_1_flw_dns.png}
+    \includegraphics[width=0.9\textwidth]{graphs/Mechelininkatu_1_spd_time_5.png}
+    \caption{Flow-density and velocity time series diagrams for Mechelininkatu, measurement point 1.}
+    \label{fig:2}
 \end{figure}
 
-From the flow-density plot, we can see that during the simulation, the area reaches the S phase of the three-phase model. Also from the flow rate and velocity time-series plots we can see that at the pictured runs it reaches the J phase too.
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{graphs/Mechelininkatu_4_flw_dns.png}
+    \includegraphics[width=0.9\textwidth]{graphs/Mechelininkatu_4_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Mechelininkatu, measurement point 4. The velocity time series is for the highest simulated traffic demand.}
+    \label{fig:3}
+\end{figure}
 
-TODO: do this for all interesting data collection points, not just Länäri
-
-\subsection{Simulation results}
-
-TODO: Examine simulation outcomes
-
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{graphs/Uudenmaankatu_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Uudenmaankatu_2_spd_time_4.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Uudenmaankatu_2_spd_time_5.png}
+    \caption{Flow-density and two velocity time series diagrams for Uudenmaankatu, measurement point 2. The velocity time series diagram on the left is for a lower traffic demand simulation run than the one on the right.}
+    \label{fig:4}
+\end{figure}
 
 \clearpage
 
-\section{Summary}
+\section{Discussion} \label{discussion}
 
-TODO: Write this properly
+In this chapter, the selected results introduced in section \ref{res} will be examined. The descriptiveness of the theories described in section \ref{bg}, in particular the three-phase model, will be analyzed.
 
-As can be seen, there are bottlenecks in the network. Congestion pricing has been shown to reduce congestion in the critical road sections. That is one possible solution.
+Traffic data of Länsiväylä is pictured in figure \ref{fig:1}. From the flow-density diagram, we can see that at first, as the density of vehicles grows, the flow rate also grows along linearly. However as the density surpasses approximately $0.05 vehicles/m$, the flow rate stops reliably growing along with the density. Instead the flow rates roughlt fall inside an area between the $x$-axis and the linear curve that flow and density seem to follow at first. This seems to correspond with the three-phase traffic model and show the $F \to S$ transition of the traffic. The same kind of a shape can also be seen in the flow-density diagrams in figures \ref{fig:2} and \ref{fig:4}.
+
+If the velocity time series data of Länsiväylä is examined, a clear drop in velocity can be seen at around $500$ seconds. This seems to mark the point in which traffic shifts from phase $S$ to $J$, according to the three-phase model. In the case of Länsiväylä, the $J$ phase persists until the end of the simulation round. In contrast to this, the velocity time series of Mechelininkatu (measurement point 1), pictured in figure \ref{fig:2}, drops similarly. However, in the latter case, the velocity gradually recovers to its original value. This demonstrates that a traffic system can recover from a jam without active measures and with a constant traffic demand.
+
+Figure \ref{fig:3} shows a different measurement point of Mechelininkatu, which is located further from the bottleneck areas that the one pictured in figure \ref{fig:2}. As can be seen from the flow-density diagram, the spot does not reach a sufficient traffic density to shift into the $S$ phase of the three-phase model. This is also visible in the velocity time series, which shows a nearly constant velocity throughout the simulation. As can be seen by examining the full dataset in appendix \ref{graphs}, similarly a large portion of data collection points did not exhibit signs of getting jammed. The bottlenecks of the simulation were located around a handful of critical points of the road network.
+
+In figure \ref{fig:4}, the flow-density diagram is drawn along with two velocity time series graphs for two different traffic demand values for a measurement point in Uudenmaankatu. The simulation run with the smaller traffic demand value does show signs of a jam, but as the amount of vehicles entering the simulation is increased with the larger traffic demand, a jam forms in the run with the larger demand. In the pictured data this can be seen as a noticeable velocity drop, indicating a shift into the $J$ phase in the latter graph. This suggests that the increase in traffic density between the runs passes the critical density $\rho_c$, shifting the traffic into phase $S$ and making $S \to J$ transitions possible.
+
+After looking at the major types of measurement results, the three-phase model of traffic seems to explain the different observed phenomena with sufficient accuracy. In comparison to the fundemental model of traffic flow, it provides a more detailed model of how congestion forms in a traffic network. Moreover, its predictions match well with the results derived from the microscopic simulation developed here, while the simplistic near-linear drop after passing $\rho_c$, described by the fundemental diagram does not match the data from the simulation.
+
+Conducting an in-depth discussion on mitigating the bottlenecks in a traffic network is out of scope for this thesis. However, it can be mentioned that congestion pricing has been is seen as an efficient method of reducing congestion in critical roads. Congestion pricing would incentivize both temporal and geographic decentralization of traffic, thus alleviating the worst bottlenecks during peak hours. \cite{congestionpricing}
 
 \clearpage
 
@@ -352,7 +341,7 @@ As can be seen, there are bottlenecks in the network. Congestion pricing has bee
 
 \thesisappendix
 
-\section{Python code}
+\section{Python code} \label{code}
 
 Below is the Python code used to run the simulation and collect data. Running the code requires the Python libraries matplotlib and pywin32. The code is run by simply running \begin{verbatim}python main.py\end{verbatim}
 
@@ -370,5 +359,395 @@ Below is the Python code used to run the simulation and collect data. Running th
 
 \begin{verbatim}settings.py\end{verbatim}
 \lstinputlisting[language=Python]{code/settings.py}
+
+\clearpage
+
+\section{Data} \label{graphs}
+
+Flow-density and time series diagrams are presented here for all the data collection points of the simulation. For time series diagrams, only the run with the highest traffic demand will be presented in the interest of conciseness.
+
+It is worth noting that in some velocity graphs quick spikes to zero and back can be seen. This is caused by the low utilization of some of the road segments, and therefore a sign of no traffic passing through the measurement point, instead of a dramatic slowdown of traffic.
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Abrahamintie_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Abrahamintie_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Abrahamintie, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Abrahamintie_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Abrahamintie_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Abrahamintie, measurement point 2.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Abrahamintie_3_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Abrahamintie_3_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Abrahamintie, measurement point 3.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Abrahamintie_4_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Abrahamintie_4_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Abrahamintie, measurement point 4.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Bulevardi, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Bulevardi, measurement point 2.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_3_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_3_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Bulevardi, measurement point 3.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_4_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_4_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Bulevardi, measurement point 4.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_5_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_5_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Bulevardi, measurement point 5.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_6_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Bulevardi_6_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Bulevardi, measurement point 6.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Eerikinkatu, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Eerikinkatu, measurement point 2.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_3_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_3_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Eerikinkatu, measurement point 3.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_4_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_4_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Eerikinkatu, measurement point 4.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_5_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_5_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Eerikinkatu, measurement point 5.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_6_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Eerikinkatu_6_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Eerikinkatu, measurement point 6.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Erottaja_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Erottaja_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Erottaja, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Erottaja_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Erottaja_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Erottaja, measurement point 2.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Etelaesplanadi_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Etelaesplanadi_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Etelaesplanadi, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Hietalahdenranta_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Hietalahdenranta_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Hietalahdenranta, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Hietalahdenranta_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Hietalahdenranta_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Hietalahdenranta, measurement point 2.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Jatkasaarenlaituri_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Jatkasaarenlaituri_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Jatkasaarenlaituri, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Jatkasaarenlaituri_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Jatkasaarenlaituri_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Jatkasaarenlaituri, measurement point 2.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Kalevankatu_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Kalevankatu_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Kalevankatu, measurement point 1.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Kalevankatu_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Kalevankatu_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Kalevankatu, measurement point 2.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Kalevankatu_3_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Kalevankatu_3_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Kalevankatu, measurement point 3.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Kalevankatu_4_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Kalevankatu_4_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Kalevankatu, measurement point 4.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Korkeavuorenkatu_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Korkeavuorenkatu_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Korkeavuorenkatu, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Korkeavuorenkatu_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Korkeavuorenkatu_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Korkeavuorenkatu, measurement point 2.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Korkeavuorenkatu_3_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Korkeavuorenkatu_3_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Korkeavuorenkatu, measurement point 3.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Korkeavuorenkatu_4_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Korkeavuorenkatu_4_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Korkeavuorenkatu, measurement point 4.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Lansivayla_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Lansivayla_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Lansivayla, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Lansivayla_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Lansivayla_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Lansivayla, measurement point 2.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Lonnrotinkatu_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Lonnrotinkatu_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Lönnrotinkatu, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Lonnrotinkatu_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Lonnrotinkatu_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Lönnrotinkatu, measurement point 2.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Lonnrotinkatu_3_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Lonnrotinkatu_3_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Lönnrotinkatu, measurement point 3.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Lonnrotinkatu_4_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Lonnrotinkatu_4_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Lönnrotinkatu, measurement point 4.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Malminrinne_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Malminrinne_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Malminrinne, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Malminrinne_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Malminrinne_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Malminrinne, measurement point 2.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Mannerheimintie_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Mannerheimintie_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Mannerheimintie, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Mannerheimintie_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Mannerheimintie_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Mannerheimintie, measurement point 2.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Mannerheimintie_3_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Mannerheimintie_3_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Mannerheimintie, measurement point 3.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Mannerheimintie_4_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Mannerheimintie_4_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Mannerheimintie, measurement point 4.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Mechelininkatu_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Mechelininkatu_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Mechelininkatu, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Mechelininkatu_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Mechelininkatu_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Mechelininkatu, measurement point 2.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Mechelininkatu_3_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Mechelininkatu_3_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Mechelininkatu, measurement point 3.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Mechelininkatu_4_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Mechelininkatu_4_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Mechelininkatu, measurement point 4.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Pohjoisesplanadi_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Pohjoisesplanadi_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Pohjoisesplanadi, measurement point 1.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Porkkalankatu_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Porkkalankatu_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Porkkalankatu, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Porkkalankatu_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Porkkalankatu_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Porkkalankatu, measurement point 2.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Punavuorenkatu_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Punavuorenkatu_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Punavuorenkatu, measurement point 1.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Punavuorenkatu_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Punavuorenkatu_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Punavuorenkatu, measurement point 2.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Ruoholahdenkatu_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Ruoholahdenkatu_1_spd_time_6.png}
+    \caption{ Flow-density and velocity time series diagrams for Ruoholahdenkatu, measurement point 1. }
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Uudenmaankatu_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Uudenmaankatu_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Uudenmaankatu, measurement point 1.}
+\end{figure}
+
+\clearpage
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Uudenmaankatu_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Uudenmaankatu_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Uudenmaankatu, measurement point 2.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Yrjonkatu_1_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Yrjonkatu_1_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Yrjönkatu, measurement point 1.}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{graphs/Yrjonkatu_2_flw_dns.png}
+    \includegraphics[width=0.45\textwidth]{graphs/Yrjonkatu_2_spd_time_6.png}
+    \caption{Flow-density and velocity time series diagrams for Yrjönkatu, measurement point 2.}
+\end{figure}
+
+\clearpage
 
 \end{document}
